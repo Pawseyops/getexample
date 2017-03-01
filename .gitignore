@@ -1,0 +1,7 @@
+*.out
+README~
+*.slurm~
+*.slm~
+*.f90~
+*.*~
+test_examples

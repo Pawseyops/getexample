@@ -1,0 +1,57 @@
+#!/bin/bash
+#DESCRIPTION Download user examples
+# Define getexample install directory 
+# export GE_DIR in module file
+#LABEL Files
+hostid=`echo ${PAWSEY_CLUSTER}`
+echo ${hostid}
+if [ ${hostid} == "magnus" ]; then 
+    declare -a location=("${GE_DIR}/magnus_examples")
+elif [ ${hostid} == "zeus" ]; then
+    declare -a location=("${GE_DIR}/zeus_examples" "${GE_DIR}/zythos_examples")
+fi
+N_dir=${#location[@]}
+
+#TODO Make a list of users downloading examples?
+
+#Display help message if no example is given
+if [ "$1" == "" ]; then
+	echo "Download an HPC example:"
+	echo "usage:"
+	echo "   getexample <examplename>"
+	echo ""
+	echo "Where <examplename> is the name of the example you want to "
+	echo "download.  This will create a directory named examplename which"
+	echo "you can cd into and hopefully read the README file (if one is"
+	echo "avaliable) or just submit the *.qsub file."
+	echo ""
+	echo "For Example:"
+	echo "  getexample helloworld"
+	echo ""
+	echo "Possible example names:"
+	for (( i = 1; i<${N_dir}+1;i++ ));
+	do 
+	    ls -d ${location[$i-1]}
+	    ls ${location[$i-1]}
+	    echo " " 
+	done
+	exit 0
+else
+temp_project_id=`echo $MYGROUP | cut -d "/" -f 3`
+if [[ ! -f ${HOME}/.gehist ]]; then 
+   touch ${HOME}/.gehist 
+fi
+# date +%d/%m/%y
+echo " $1 $USER "$temp_project_id" `date +%F`" >> ${HOME}/.gehist 
+
+fi
+
+
+for (( i = 1; i<${N_dir}+1;i++ ));
+do 
+   if [[ -d ${location[$i-1]}/$1 ]]; then
+      echo found directory
+#cp example to users current directory
+      cp -r -v -u ${location[$i-1]}/$1 .
+   fi
+done
