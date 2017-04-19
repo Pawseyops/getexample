@@ -17,9 +17,13 @@ the command to run **getexample** is **getexample**!
 The **getexample** command by itself will show all the different examples available that are on that system.  This is a list of directories that typically contain the executable *README* file and the *slurm* job script associated with that **getexample**.
 
 To download an example the command is:
+
 _getexample_ _name of example_
+
 This will copy the directory _name of example_ to your current directory.
+
 _cd name of example_
+
 _ls_ will show the contents.
 
 To run the *README* the command is:
