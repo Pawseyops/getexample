@@ -24,7 +24,7 @@ This will copy the directory _name of example_ to your current directory.
 
 _cd name of example_
 
-_ls_ will show the contents.
+_ls_ will list the contents.
 
 To run the *README* the command is:
 _./README_
