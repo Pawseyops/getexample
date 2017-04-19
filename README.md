@@ -13,7 +13,8 @@ Simple load the **getexample** environment module.
 
 _module load getexample_
 
-the command to run **getexample** is **getexample**!
+The command to run **getexample** is **getexample**!
+
 The **getexample** command by itself will show all the different examples available that are on that system.  This is a list of directories that typically contain the executable *README* file and the *slurm* job script associated with that **getexample**.
 
 To download an example the command is:
