@@ -1,0 +1,67 @@
+#!/bin/bash
+# This is the README file is an executable script.
+# To run type: ./README
+#
+# Example OBJECTIVE: to demostrate how to do high-throughput (ie 1000's) of
+# runs using plink on Zeus using slurm. 
+
+# This information is located in run_plink.slurm
+# You can edit the SLURM as: emacs run_plink.slurm &
+
+# SLURM directives
+# 
+# for this example we specify in the run_plink.slurm script the folowing options
+# using the directive #SBATCH --nodes=1  we want 1 node. 
+# That the partition used is  --partition==workq is the workq.
+# The maximum number of tasks to be launched on a node  --ntasks=16
+# Node Zeus nodes have a minimum of 16 cores per nodes.
+# The ammount of memory per cpu(core) is --mem-per-cpu=4G 
+# Note Zeus nodes have a minimum of 128G per node or 8G per core
+
+# To run the code here is the basic loop structure that is used to start up to 16 jobs
+# for segment in $(seq ${start_seg} 55)
+# do 
+# srun --exclusive -n 1 plink --noweb .... & 
+# done
+# wait
+
+# about slurm and job packing:
+# --ntasks must be used with --exclusive 
+# -n is the number of cores to use for single plink job
+# the "wait" command is needed to sync all the cores/threads at the end 
+# of the loop!
+
+# To submit the job to Zeus
+jobid=`sbatch run_plink.slurm | cut -d " " -f 4`
+
+echo "The sbatch command returns what jobid ${jobid} is for this job."
+echo "To check the status of your job, use the slurm command:"
+echo "squeue -u $USER"
+echo " "
+echo "Your job will be run in $MYSCRATCH/run_plink/${jobid}."
+echo " "
+echo "Your results will be saved in ${MYGROUP}/plink_results_zeus/${jobid}"
+echo "and the scratch directory will then be deleted."
+echo " "
+echo "To check the results change to your jobid directory, type:"
+echo "cd ${MYGROUP}/plink_results_zeus/${jobid}"
+echo "a listing \"ls\" will show individual directories for each segment" 
+echo " " 
+echo "To view the individual segment results, change 'cd' into one of the "
+echo "segement sub-directories in then use the cat command and type:"
+echo " " 
+echo "cat TCTX_#_out.log -- where # is the segment id number"
+echo " "
+echo " PAWSEY user shortcuts! " 
+echo  '$MYSCRATCH' "is an environment variable it is set to $MYSCRATCH"
+echo  '$MYGROUP' "is an environment variable it is set to $MYGROUP"
+echo " example:  cd \$MYGROUP "
+echo " "  
+echo "more information about Zeus/Zython can be found at:"
+echo " https://support.pawsey.org.au/documentation/pages/viewpage.action?pageId=2162999"
+echo " "
+echo "more information about SLURM srun and aprun can be found at:"
+echo " https://support.pawsey.org.au/documentation/display/US/Scheduling+and+Running+Jobs"
+echo " "
+echo " "
+
