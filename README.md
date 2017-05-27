@@ -34,9 +34,10 @@ _./README_
 
 ## Notes for the Pawsey Supercomputing System using SLURM 
 
-Some useful SLURM VARIABLE associated with SBATCH
-How to set the SBATCH_ACCOUNT variable from the $MYGROUP system variable local to 
-the Pawsey Supercomputing Center.
+Some useful SLURM VARIABLEs associated with SBATCH directives.
+How to set the SBATCH_ACCOUNT variable to default to the MYGROUP system variable 
+local to the Pawsey Supercomputing Center.
+
 #export SBATCH_ACCOUNT=`echo $MYGROUP | awk 'BEGIN{FS="/"}{print $3}'`
 
 SLURM_SUBMIT_DIR is the directory from which the SBATCH command was run.
@@ -51,5 +52,4 @@ SCRATCH is the path to the directory where the job will run and it uses
 the local system **MYSCRATCH** variable. Where **MYSCRATCH** is defined as
 \/scratch\/_{project_id}_\/_{user}_ 
 
-Please email colbrydi@msu.edu if you are interested in this project.
 
