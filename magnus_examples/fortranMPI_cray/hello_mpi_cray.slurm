@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH --job-name=GE-fortranMPI_cray
 #SBATCH --partition=workq
-#SBATCH --nodes=2
+#SBATCH --nodes=1
 #SBATCH --time=00:05:00
 #SBATCH --export=NONE
 
@@ -12,7 +12,7 @@ module list
 #  These are generic variables
 EXECUTABLE=hello_mpi_cray
 SCRATCH=$MYSCRATCH/run_fortranMPI_cray/$SLURM_JOBID
-RESULTS=$MYGROUP/mpifortran_cray_results/$SLURM_JOBID
+RESULTS=$MYGROUP/fortranMPI_cray_results/$SLURM_JOBID
 
 ###############################################
 # Creates a unique directory in the SCRATCH directory for this job to run in.
@@ -40,7 +40,7 @@ cp $EXECUTABLE $SCRATCH
 
 cd $SCRATCH
 
-aprun -n 48 -N 24 ./$EXECUTABLE >> ${OUTPUT}
+aprun -n 24 -N 24 ./$EXECUTABLE >> ${OUTPUT}
 
 #############################################
 #    $OUTPUT file to the unique results dir

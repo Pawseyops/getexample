@@ -15,7 +15,7 @@ module list
 #  These are generic variables
 EXECUTABLE=hello_omp_gnu
 SCRATCH=$MYSCRATCH/run_helloOmp_gnuC/$SLURM_JOBID
-RESULTS=$MYGROUP/helloomp_c_gnu_results/$SLURM_JOBID
+RESULTS=$MYGROUP/helloOmp_gnuC_results/$SLURM_JOBID
 
 ###############################################
 # Creates a unique directory in the SCRATCH directory for this job to run in.

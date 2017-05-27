@@ -1,21 +1,18 @@
 #!/bin/bash --login
-#SBATCH --job-name=GE-helloOmp_intelC
-#SBATCH --partition=workq
-#SBATCH --nodes=1
+#SBATCH --job-name=GE-hello_hybrid_c_cray
+#SBATCH --reservation=courseq
+#SBATCH --nodes=2
 #SBATCH --time=00:05:00
 #SBATCH --export=NONE
-
-# to compile with Intel, swap from Cray environment to Intel
-module swap PrgEnv-cray PrgEnv-intel
 
 # leave in, it lists the environment loaded by the modules
 module list
 
 #  Note: SLURM_JOBID is a unique number for every job.
 #  These are generic variables
-EXECUTABLE=hello_omp_intel
-SCRATCH=$MYSCRATCH/run_helloOmp_intelC/$SLURM_JOBID
-RESULTS=$MYGROUP/helloOmp_intelC_results/$SLURM_JOBID
+EXECUTABLE=hello_hybrid_cray
+SCRATCH=$MYSCRATCH/run_hello_hybrid_c_cray/$SLURM_JOBID
+RESULTS=$MYGROUP/hello_hybrid_c_cray_results/$SLURM_JOBID
 
 ###############################################
 # Creates a unique directory in the SCRATCH directory for this job to run in.
@@ -33,7 +30,7 @@ echo the results directory is $RESULTS
 
 ################################################
 # declare the name of the output file or log file
-OUTPUT=helloOmp_intelC.log
+OUTPUT=hello_hybrid_c_cray.log
 
 #############################################
 #   Copy input files to $SCRATCH
@@ -43,10 +40,10 @@ cp $EXECUTABLE $SCRATCH
 
 cd $SCRATCH
 
-export OMP_NUM_THREADS=24
-export KMP=AFFINITY=disabled
+export OMP_NUM_THREADS=12
 
-aprun -n 1 -d 24 ./$EXECUTABLE >> ${OUTPUT}
+echo "Number of threads is $OMP_NUM_THREADS"
+aprun -n 4 -N 2 -S 1 -d $OMP_NUM_THREADS ./$EXECUTABLE >> ${OUTPUT}
 
 #############################################
 #    $OUTPUT file to the unique results dir
@@ -60,8 +57,7 @@ cd $HOME
 
 rm -r $SCRATCH
 
-echo helloOmp_intelC job finished at  `date`
+echo hello_hybrid_c_cray job finished at  `date`
 
 
-# To swap from Intel environment to the default program environment:
-module swap PrgEnv-intel PrgEnv-cray
+

@@ -12,7 +12,7 @@ module list
 #  These are generic variables
 EXECUTABLE=hello_hybrid_cray
 SCRATCH=$MYSCRATCH/run_hello_hybrid_c_cray/$SLURM_JOBID
-RESULTS=$MYGROUP/hellohybrid_c_cray_results/$SLURM_JOBID
+RESULTS=$MYGROUP/hello_hybrid_c_cray_results/$SLURM_JOBID
 
 ###############################################
 # Creates a unique directory in the SCRATCH directory for this job to run in.
@@ -40,10 +40,10 @@ cp $EXECUTABLE $SCRATCH
 
 cd $SCRATCH
 
-export OMP_NUM_THREADS=6
+export OMP_NUM_THREADS=12
 
 echo "Number of threads is $OMP_NUM_THREADS"
-aprun -n 8 -N 4 -S 2 -d 6 ./$EXECUTABLE >> ${OUTPUT}
+aprun -n 4 -N 2 -S 1 -d $OMP_NUM_THREADS ./$EXECUTABLE >> ${OUTPUT}
 
 #############################################
 #    $OUTPUT file to the unique results dir

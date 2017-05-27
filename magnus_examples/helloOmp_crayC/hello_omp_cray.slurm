@@ -12,7 +12,7 @@ module list
 #  These are generic variables
 EXECUTABLE=hello_omp_cray
 SCRATCH=$MYSCRATCH/run_helloOmp_crayC/$SLURM_JOBID
-RESULTS=$MYGROUP/helloomp_c_cray_results/$SLURM_JOBID
+RESULTS=$MYGROUP/helloOmp_crayC_results/$SLURM_JOBID
 
 ###############################################
 # Creates a unique directory in the SCRATCH directory for this job to run in.
