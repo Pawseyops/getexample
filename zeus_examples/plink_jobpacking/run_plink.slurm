@@ -19,6 +19,8 @@ exec=plink
 tctx=TCTX_1
 start_segment=0
 DATA_DIR=${SLURM_SUBMIT_DIR}/plink-data
+JOBID=$SLURM_JOBID
+
 
 ###############################################
 # Creates a unique directory in your GROUP directory 
