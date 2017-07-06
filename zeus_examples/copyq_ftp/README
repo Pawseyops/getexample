@@ -1,0 +1,51 @@
+#!/bin/bash --login
+# This is the README file is an executable script.
+# To run type: ./README
+#
+# Example OBJECTIVE: to demostrate how to copy data with a simple example
+# on Zeus using ftp.
+# This example will copy the bcsstk30.mtx.gz from the http://math.nist.gov/MatrixMarket/ website
+# using ftp.
+# To run this script it is not necessary to load any modules.
+
+
+# SLURM directives
+# 
+# Here we specify to SLURM that we want 1 node (--nodes=1)
+# Then, we modify the partition to --partition==copyq
+# 
+
+# To submit the job to Zeus
+sbatch copyq_ftp.slurm
+jobid=`squeue -u $USER | grep $USER | awk '{print $1}'`
+echo " " 
+echo "The sbatch command returns what the jobid is for this job."
+echo "To check the status of your job, use the slurm command:"
+echo " squeue -u $USER"
+echo " "
+echo "Your results will be copied directly to ${MYGROUP}/Harwell_Boeing_Matrix_ftp"
+echo " "
+echo " "
+echo "To check the results change to your jobid directory, type:"
+echo "cd $MYGROUP/Harwell_Boeing_Matrix_ftp"
+echo " " 
+echo "To view the results, use the cat command and type:"
+echo "ls -al bcsstk30.mtx.gz"
+echo " "
+echo " PAWSEY user shortcuts! " 
+echo  '$MYSCRATCH' "is an environment variable it is set to $MYSCRATCH"
+echo  '$MYGROUP' "is an environment variable it is set to $MYGROUP"
+echo " example:  cd \$MYGROUP "
+echo " "  
+echo "more information about Zeus/Zythos can be found at:"
+echo " https://support.pawsey.org.au/documentation/pages/viewpage.action?pageId=2162999"
+echo " "
+echo "more information about SLURM can be found at:"
+echo " https://support.pawsey.org.au/documentation/display/US/Scheduling+and+Running+Jobs"
+echo " "
+echo "more information about the copyq can be found at:"
+echo " https://support.pawsey.org.au/documentation/pages/viewpage.action?pageId=2918013"
+echo " "
+echo " "
+echo " "
+
