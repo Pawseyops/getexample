@@ -48,8 +48,11 @@ consistent regardless of the job/example type.
 JOBID=$SLURM_JOBID is used to so that we future proof the examples if we 
 change resource manangers and it makes the scripts easier to read for new users.
 
-SCRATCH is the path to the directory where the job will run and it uses
-the local system **MYSCRATCH** variable. Where **MYSCRATCH** is defined as
-\/scratch\/_{project_id}_\/_{user}_ 
+SCRATCH is the name of filesystem ideally the parallel filesystem such as Lustre or GPFS where you will run your jobs.
+At the Pawsey Supercomputing Centre we allocate resources by projects and users are assign to these projects accordingly.
+To simplify the path naming foreach project/user on the SCRATCH filesystem we have created a local system variable called **MYSCRATCH**. Where **MYSCRATCH** is defined as \/scratch\/_{project_id}_\/_{user}_ this is key as it allows us to develop 
+standard scripts for any user on any project.  So we can provide better user support tools such as **getexample**.
+
+
 
 
