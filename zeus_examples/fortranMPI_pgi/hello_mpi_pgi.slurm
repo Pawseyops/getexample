@@ -1,7 +1,6 @@
 #!/bin/bash --login
 #SBATCH --job-name=GE-fortranMPI_pgi
 #SBATCH --partition=workq
-#SBATCH --account=interns2016
 #SBATCH --nodes=2
 #SBATCH --time=00:10:00
 
