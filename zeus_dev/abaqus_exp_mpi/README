@@ -1,0 +1,68 @@
+#!/bin/bash --login
+# This is the README file is an executable script.
+# To run type: ./README
+#
+# Example OBJECTIVE: to demostrate how to run ABAQUS with a simple example
+# on Zeus with the explicit solvers.
+# 
+# E3.inp: This benchmark consists of forming a sheet metal part by the deep drawing process. 
+# The deformable sheet metal blank is meshed with shell elements of type S4R and uses an 
+# isotropic hardening Mises plasticity material model. The tools are meshed using surface 
+# elements of type SFM3D4R which are declared rigid. General contact is defined between the 
+# blank and tools. The analysis sequence consists of two steps. During the first step the 
+# blank is clamped between the binder and die and then during the second step the punch is 
+# displaced to form the part. Since the process is essentially quasi-static the computations 
+# are performed over a sufficiently long time period to render inertial effects negligible. 
+# The performance of this analysis is a direct measure of the performance of the 
+# three-dimensional general contact algorithm.
+
+cp $GE_DIR/src/abaqus/e3.inp .
+
+# To run this code load the necessary modules.
+# and specify the total number of MPI processes.
+
+# SLURM directives
+# 
+# Here we specify to SLURM that we want 2 nodes 
+# "#SBATCH --nodes=2"
+# Then, to specify the queue or "partition" to --partition=workq
+# "#SBATCH --partition=workq"
+# To ensure that we have a correct defined environment use
+# "#SBATCH --export=NONE"
+
+# we need to load the abaqus module as shown below: 
+module load abaqus
+
+# To submit the job to Zeus
+echo "commmand to submit the slurm script is "
+echo "sbatch abaqus_explicit.slurm"
+jobid=`sbatch abaqus_explicit.slurm | cut -d " " -f 4`
+
+echo "The sbatch command returns what the jobid is for this job."
+echo "To check the status of your job, use the slurm command:"
+echo "squeue -u $USER"
+echo " "
+echo "Your job will be run in $MYSCRATCH/run_helloOmpC_gnu/${jobid}."
+echo " "
+echo "Your results will be saved in ${MYGROUP}/helloOmpC_gnu_results_zeus/${jobid}"
+echo "and the scratch directory will then be deleted."
+echo " "
+echo "To check the results change to your jobid directory, type:"
+echo "cd ${MYGROUP}/helloOmpC_gnu_results_zeus/${jobid}"
+echo " " 
+echo "To view the results, use the cat command and type:"
+echo "cat helloOmpC_gnu.log"
+echo " "
+echo " PAWSEY user shortcuts! " 
+echo  '$MYSCRATCH' "is an environment variable it is set to $MYSCRATCH"
+echo  '$MYGROUP' "is an environment variable it is set to $MYGROUP"
+echo " example:  cd \$MYGROUP "
+echo " "  
+echo "more information about Zeus/Zython can be found at:"
+echo " https://support.pawsey.org.au/documentation/pages/viewpage.action?pageId=2162999"
+echo " "
+echo "more information about SLURM and aprun can be found at:"
+echo " https://support.pawsey.org.au/documentation/display/US/Scheduling+and+Running+Jobs"
+echo " "
+echo " "
+
