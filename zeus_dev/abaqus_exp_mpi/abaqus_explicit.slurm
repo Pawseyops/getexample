@@ -1,7 +1,6 @@
 #!/bin/bash --login
 #SBATCH --job-name=e3_GE-abaqus-mpi
 #SBATCH --partition=workq
-#SBATCH --account=pawsey0001
 #SBATCH --cpus-per-task=16
 #SBATCH --nodes=2
 #SBATCH --time=01:00:00
